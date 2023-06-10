@@ -1,5 +1,8 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import TextInput from './components/TextInput';
+import { Formik, Form, ErrorMessage } from "formik";
+import TextInput from "./components/TextInput";
+import Checkbox from "./components/Checkbox";
+import Select from "./components/Select";
+import Radio from "./components/Radio";
 
 const validate = (values) => {
   const errors = {};
@@ -12,34 +15,45 @@ const validate = (values) => {
   if (!values.lastName) {
     errors.lastName = "Required";
   } else if (values.lastName.length < 5) {
-    errors.lastName = "El apellid es muy corto";
+    errors.lastName = "El apellido es muy corto";
   }
+
+  if (!values.radio) {
+    errors.radio = "Required";
+  }
+
   return errors;
 };
 const App = () => {
   return (
     <Formik
-      initialValues={{ name: "", lastName: "", email: "" }}
+      initialValues={{ name: "", lastName: "", email: "", radio: "" }}
       validate={validate}
       onSubmit={(values) => console.log(values)}
     >
       <Form>
-        <TextInput name="name" label="Name"/>
-        {/* <label>Name</label>
-        <Field type="text" name="name"/> */}
-        {/* <ErrorMessage name="name"/> */}
-        <Field as="select" name="select">
-          <option value="1a">1a</option>
-          <option value="2b">2b</option>
-        </Field>
+        <TextInput name="name" label="Name" />
         <br />
-        <label>Lastname</label>
-        <Field type="text" name="lastName" />
-        <ErrorMessage name="lastName"/>
+        <TextInput name="lastName" label="Last name" />
         <br />
-        <label>Email</label>
-        <Field type="email" name="email" />
-        <ErrorMessage name="email"/>
+        <TextInput name="email" label="Email" />
+        <br />
+
+        <Select label="Type" name="a">
+          <option value="a">a</option>
+          <option value="b">b</option>
+          <option value="c">c</option>
+        </Select>
+
+        <br />
+        <Checkbox name="accept">Accept</Checkbox>
+        <br />
+        <Radio name="radio" value="A" label="A" />
+        <Radio name="radio" value="B" label="B" />
+        <Radio name="radio" value="C" label="C" />
+        <ErrorMessage name="radio" />
+        <br />
+
         <button type="submit">Send</button>
       </Form>
     </Formik>
