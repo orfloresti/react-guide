@@ -1,21 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import { legacy_createStore as createStore } from 'redux'
+import { Provider } from 'react-redux'
+import App, { reducer, asyncMiddleware } from './App.jsx'
+import { legacy_createStore as createStore, applyMiddleware } from 'redux'
 
-const store = createStore((state = 0, action) => {
-  switch(action.type) {
-    case 'action':
-      return action.payload;
-  }
-  return state;
-})
-
-store.dispatch({type: 'action', payload: 2});
-console.log(store.getState());
+const store = createStore(reducer, applyMiddleware(asyncMiddleware));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 )
