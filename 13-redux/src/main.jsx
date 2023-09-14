@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import App, { reducer, asyncMiddleware } from './App.jsx'
+import App from './App.jsx'
 import { legacy_createStore as createStore, applyMiddleware } from 'redux'
+import { asyncMiddleware } from './middlewares/async'
+import { reducer } from './features/todos.js'
 
 const store = createStore(reducer, applyMiddleware(asyncMiddleware));
 
