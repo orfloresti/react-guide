@@ -1,5 +1,13 @@
+import Link from 'next/link';
+
+
 const Chanchito =() => {
-  return <p>Chanchito</p>
+  return(
+    <div>
+      <p>Chanchito</p>
+      <Link href="/">Inicio</Link>
+    </div>
+  )
 }
 
 export default Chanchito;
