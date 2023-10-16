@@ -1,7 +1,22 @@
-export default function Home({pokemones}) {
-  console.log(pokemones);
+import Link from 'next/link';
+
+const Pokemon = ({pokemon}) => {
+  const id = pokemon.url.split('/').filter(x=>x).pop();
   return (
+    <li><Link href={`/pokemones/${id}`}>{pokemon.name}</Link></li>
+  )
+}
+
+export default function Home({pokemones}) {
+  return (
+  <div>
     <p>Pokemones</p>
+    <ul>
+      <li>
+        {pokemones.map(pokemon => <Pokemon pokemon={pokemon} key={pokemon.name}></Pokemon>)}
+      </li>
+    </ul>
+  </div>
   )
 }
 
